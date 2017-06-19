@@ -1,6 +1,3 @@
-codecov:
-  token: deed8454-43c9-49ed-a3c9-202c9a74013c
-
 test:
     post:
         - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
