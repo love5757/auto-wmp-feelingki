@@ -16,25 +16,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class AutonomousRegistrationApplicationTests {
 
 	@Test
-	public void contextLoads() {
-	}
-
-	@Test
-	public void loingTest() {
-
-
-
-	}
-
-	@Test
 	public void workAdd(){
-
-
+		assertNull(null);
 	}
 
 
