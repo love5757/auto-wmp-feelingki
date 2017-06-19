@@ -4,6 +4,7 @@ package kr.yerina.wmp.autonomousRegistration.controller;
 import kr.yerina.wmp.autonomousRegistration.domain.Work;
 import kr.yerina.wmp.autonomousRegistration.properties.MyConfiguration;
 import kr.yerina.wmp.autonomousRegistration.repository.WorksRepository;
+import kr.yerina.wmp.autonomousRegistration.slack.SlackNotifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
