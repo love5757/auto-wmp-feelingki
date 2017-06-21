@@ -1,7 +1,7 @@
 package kr.yerina.wmp.autonomousRegistration.interceptor;
 
 
-import kr.yerina.wmp.autonomousRegistration.config.WmpServiceConfigs;
+import kr.yerina.wmp.autonomousRegistration.properties.WmpServiceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +15,7 @@ import java.util.Objects;
 public class HandlerInterceptor extends HandlerInterceptorAdapter{
 
     @Autowired
-    private WmpServiceConfigs wmpServiceConfigs;
+    private WmpServiceProperties wmpServiceProperties;
 
     @Override
     public void postHandle(
@@ -23,7 +23,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
             throws Exception {
 
         if(Objects.nonNull(modelAndView)){
-            modelAndView.addObject("wmpServiceConfig", wmpServiceConfigs);
+            modelAndView.addObject("wmpServiceConfig", wmpServiceProperties);
         }
 
     }

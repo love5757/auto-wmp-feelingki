@@ -1,24 +1,19 @@
 package kr.yerina.wmp.autonomousRegistration.controller;
 
 
-import kr.yerina.wmp.autonomousRegistration.config.WmpServiceConfigs;
+import kr.yerina.wmp.autonomousRegistration.properties.WmpServiceProperties;
 import kr.yerina.wmp.autonomousRegistration.domain.Work;
-import kr.yerina.wmp.autonomousRegistration.properties.MyConfiguration;
 import kr.yerina.wmp.autonomousRegistration.repository.WorksRepository;
 import kr.yerina.wmp.autonomousRegistration.slack.SlackNotifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,12 +23,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Controller
-@EnableConfigurationProperties(WmpServiceConfigs.class)
+@EnableConfigurationProperties(WmpServiceProperties.class)
 @RefreshScope
 public class WmpHomeController {
-
-    @Autowired
-    private MyConfiguration myConfiguration;
 
     @Autowired
     private WorksRepository worksRepository;
@@ -42,7 +34,7 @@ public class WmpHomeController {
     private SlackNotifier slackNotifier;
 
     @Autowired
-    private WmpServiceConfigs wmpServiceConfigs;
+    private WmpServiceProperties wmpServiceProperties;
 
 
     @GetMapping(value = "/")
