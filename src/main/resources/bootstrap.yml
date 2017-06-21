@@ -1,0 +1,21 @@
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: wmp-service
+  application:
+    name: wmp-service
+
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: http://192.168.0.250:9999
+  application:
+    name: wmp-service
+
+

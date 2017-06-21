@@ -1,6 +1,7 @@
 package kr.yerina.wmp.autonomousRegistration.controller;
 
 
+import kr.yerina.wmp.autonomousRegistration.config.WmpServiceConfigs;
 import kr.yerina.wmp.autonomousRegistration.domain.Work;
 import kr.yerina.wmp.autonomousRegistration.properties.MyConfiguration;
 import kr.yerina.wmp.autonomousRegistration.repository.WorksRepository;
@@ -8,6 +9,9 @@ import kr.yerina.wmp.autonomousRegistration.slack.SlackNotifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Controller
+@EnableConfigurationProperties(WmpServiceConfigs.class)
+@RefreshScope
 public class WmpHomeController {
 
     @Autowired
@@ -31,6 +37,13 @@ public class WmpHomeController {
 
     @Autowired
     private WorksRepository worksRepository;
+
+    @Autowired
+    private SlackNotifier slackNotifier;
+
+    @Autowired
+    private WmpServiceConfigs wmpServiceConfigs;
+
 
     @GetMapping(value = "/")
     String home(Model model){
@@ -47,8 +60,17 @@ public class WmpHomeController {
         if(!StringUtils.isEmpty(work)){
             if(!StringUtils.isEmpty(work.getName()) && !StringUtils.isEmpty(work.getPassword())){
                 worksRepository.save(work);
+
+                SlackNotifier.SlackMessageAttachement slackMessageAttachement = new SlackNotifier.SlackMessageAttachement();
+                StringBuilder slackMessage = new StringBuilder();
+                slackMessage.append("["+work.getName()+"]이");
+                slackMessage.append("등록 되었습니다.\n");
+                slackMessageAttachement.setText(slackMessage.toString());
+                slackNotifier.notify(SlackNotifier.SlackTarget.CH_INCOMING, slackMessageAttachement);
             }
         }
+
+
         return "redirect:/";
     }
 
@@ -57,6 +79,14 @@ public class WmpHomeController {
         log.info("Delete Remote Address IP : "+request.getRemoteAddr());
         log.debug("[delectId][{}]", delectId);
         worksRepository.delete(delectId);
+
+        SlackNotifier.SlackMessageAttachement slackMessageAttachement = new SlackNotifier.SlackMessageAttachement();
+        StringBuilder slackMessage = new StringBuilder();
+        slackMessage.append("["+request.getRemoteAddr()+"]에서\n");
+        slackMessage.append(delectId +"를 삭제 하였습니다.\n");
+        slackMessageAttachement.setText(slackMessage.toString());
+        slackNotifier.notify(SlackNotifier.SlackTarget.CH_INCOMING, slackMessageAttachement);
+
         return "redirect:/";
     }
 
