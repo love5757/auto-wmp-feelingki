@@ -1,0 +1,59 @@
+---
+logging:
+  level:
+    kr.yerina.wmp.autonomousRegistration: debug
+    org.springFreamwork.web: info
+    org.hibernate: debug
+  file: /logs/wmp-auto/wmp.log
+
+spring:
+  profiles: dev
+  h2:
+    console:
+      enabled: true
+  jpa:
+    generate-ddl: true
+    show-sql: true
+  datasource:
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  queries:
+    users-query: select email, password, active from user where email=?
+    roles-query: select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+
+
+server:
+  port: 7788
+
+
+management:
+  security:
+    enabled: false
+
+---
+logging:
+  config: classpath:logback-prod.xml
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://192.168.0.250:3306/wmp
+    username: wmp
+    password: 1q2w3e4r5t
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+
+server:
+  port: 8008
+
+management:
+   security:
+     enabled: false
+
+
