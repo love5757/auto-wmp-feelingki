@@ -37,7 +37,7 @@ public class WmpHomeController {
     private WmpServiceProperties wmpServiceProperties;
 
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/workList")
     String home(Model model){
         model.addAttribute("workList",worksRepository.findAll());
         log.debug("[length][{}]", worksRepository.findAll().size());
