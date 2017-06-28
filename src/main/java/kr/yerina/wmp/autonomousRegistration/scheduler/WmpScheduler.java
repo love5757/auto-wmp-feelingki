@@ -1,8 +1,8 @@
 package kr.yerina.wmp.autonomousRegistration.scheduler;
 
 
-import kr.yerina.wmp.autonomousRegistration.domain.Holiday;
-import kr.yerina.wmp.autonomousRegistration.domain.Work;
+import kr.yerina.wmp.autonomousRegistration.entity.Holiday;
+import kr.yerina.wmp.autonomousRegistration.entity.Work;
 import kr.yerina.wmp.autonomousRegistration.repository.HolidayRepository;
 import kr.yerina.wmp.autonomousRegistration.repository.WorksRepository;
 import kr.yerina.wmp.autonomousRegistration.slack.SlackNotifier;
@@ -85,10 +85,10 @@ public class WmpScheduler {
                     log.info("response : "+addWorkResponse);
                 }
 
-                SlackNotifier.SlackMessageAttachement slackMessageAttachement = new SlackNotifier.SlackMessageAttachement();
+                /*SlackNotifier.SlackMessageAttachement slackMessageAttachement = new SlackNotifier.SlackMessageAttachement();
                 slackMessageAttachement.setTitle("WMP 자동 등록");
                 slackMessageAttachement.setText("WMP 등록 처리가 완료 되었습니다.");
-                slackNotifier.notify(SlackNotifier.SlackTarget.CH_INCOMING, slackMessageAttachement);
+                slackNotifier.notify(SlackNotifier.SlackTarget.CH_INCOMING, slackMessageAttachement);*/
             }
         }
     }

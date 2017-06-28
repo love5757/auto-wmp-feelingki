@@ -9,7 +9,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
+<style>
+    table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+    table#t01 tr:nth-child(odd) {
+        background-color:#fff;
+    }
+    table#t01 th {
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+    table#t01 td {
+        text-align: center;
+    }
+</style>
 <body>
 <div class="container">
 
@@ -23,9 +38,43 @@
             <div class="panel-heading">
                 <span th:utext="${userName}"></span>
             </div>
-            <div class="panel-body">
-                <img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="400" height="400" alt="Beer" />
-            </div>
+            <table style="width:100%" id="t01">
+                <tr>
+                    <th>No.</th>
+                    <th>이메일</th>
+                    <th>이름</th>
+                    <th>성</th>
+                    <th>role</th>
+                    <th>사용여부</th>
+                    <th>활성화</th>
+                    <th>비 활성화</th>
+                </tr>
+                <th:block th:each="user : ${userList}">
+                    <tr>
+                        <td th:text="${user.id}">...</td>
+                        <td th:text="${user.email}">...</td>
+                        <td th:text="${user.name}">...</td>
+                        <td th:text="${user.lastName}">...</td>
+                        <td th:text="${user.roles}">...</td>
+                        <td th:text="${user.active == 1} ? '활성화':'비 활성화'">...</td>
+                        <td>
+                            <form action="#" th:action="@{/userActive}" method="get">
+                                <input type="hidden" name="id" value="" th:value="${user.id}"/>
+                                <input type="hidden" name="activeStatus" value="1"/>
+                                <input type="submit" value="활성화"/>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" th:action="@{/userActive}" method="get">
+                                <input type="hidden" name="id" value="" th:value="${user.id}"/>
+                                <input type="hidden" name="activeStatus" value="0"/>
+                                <input type="submit" value="비 활성화"/>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+            <br/>
             <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
         </div>
     </div>

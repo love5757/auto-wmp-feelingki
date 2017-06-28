@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <title>WMP 자동 등록</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
     table#t01 tr:nth-child(even) {
@@ -14,6 +18,7 @@
     table#t01 th {
         background-color: black;
         color: white;
+        text-align: center;
     }
     table#t01 td {
         text-align: center;
@@ -24,43 +29,72 @@
 <h3 th:text="${wmpServiceConfig.desc}">월요일~금요일 오후 5시 30분  자동등록 처리됨</h3>
 <h4>소스 - https://github.com/love5757/auto-wmp-feelingki.git</h4>
 <h4>ConfigServer - https://github.com/love5757/config-server.git</h4>
-<h4>혹시라도 수정 및 추가 하실 내용있으면 Github에 이슈 티켓 생성 혹은 PR 날려주시면</h4>
-<h4>적응 반영 하겠습니다.</h4>
+<h4 style="color: red">* 수정 및 삭제 주의 바랍니다.</h4>
+
 <br/>
-    <form action="#" th:action="@{/addWork}" method="post">
-        <input type="text" name="name" placeholder="WMP 로그인 아이디"/>
-        <input type="password" name="password" placeholder="WMP 로그인 비밀번호"/>
-        <input type="text" name="code" placeholder="프로젝트 코드"/>
-        <input type="text" name="secondCode" placeholder="수행 프로젝트 코드"/>
-        <input type="text" name="workItem" placeholder="내용"/>
-        <input type="submit" value="등록하기"/>
+    <form class="form-horizontal" action="#" th:action="@{/addWork}" method="post">
+        <div class="form-group">
+            <label style="text-align: right" class="col-sm-2 form-label">WMP ID</label><div class="col-sm-5"><input class="form-control" type="text" name="name" placeholder="WMP 로그인 아이디"/></div>
+        </div>
+        <div class="form-group">
+            <label style="text-align: right" class="col-sm-2 form-label">WMP PW</label><div class="col-sm-5"><input class="form-control" type="password" name="password" placeholder="WMP 로그인 비밀번호"/></div>
+        </div>
+        <div class="form-group">
+            <label style="text-align: right" class="col-sm-2 form-label">작업시간</label><div class="col-sm-5"><input class="form-control" style="text-align: center" type="text" name="inputValue" placeholder="작업 시간" value="8"/></div>
+        </div>
+        <div class="form-group">
+            <label style="text-align: right" class="col-sm-2 form-label">프로젝트 코드</label><div class="col-sm-5"><input class="form-control" type="text" name="code" placeholder="프로젝트 코드"/></div>
+        </div>
+        <div class="form-group">
+            <label style="text-align: right" class="col-sm-2 form-label">수행 프로젝트 코드</label><div class="col-sm-5"><input class="form-control" type="text" name="secondCode" placeholder="수행 프로젝트 코드"/></div>
+        </div>
+        <div class="form-group">
+                <label style="text-align: right" class="col-sm-2 form-label">작업내용</label><div class="col-sm-5"><input  class="form-control" style="text-align: center" type="text" name="workItem" placeholder="내용"/></div>
+        </div>
+         <div class="form-group">
+             <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-default" type="submit" value="등록하기"/>
+             </div>
+         </div>
     </form>
 <h2></h2>
     <table style="width:100%" id="t01">
         <tr>
             <th>No.</th>
             <th>아이디</th>
+            <th>작업 시간</th>
             <th>프로젝트 코드</th>
             <th>수행 프로젝트</th>
             <th>작업내용</th>
+            <th>수정</th>
             <th>삭제</th>
         </tr>
         <th:block th:each="work : ${workList}">
             <tr>
-                <td th:text="${work.id}">...</td>
-                <td th:text="${work.name}">...</td>
-                <td th:text="${work.code}">...</td>
-                <td th:text="${work.secondCode}">...</td>
-                <td th:text="${work.workItem}">...</td>
+                 <form action="#" th:action="@{/updateWorkItem}" method="post">
+                    <td th:text="${work.id}">...</td>
+                    <td th:text="${work.name}">...</td>
+                     <td> <input style="text-align: center" type="text" name="inputValue" value="" th:value="${work.inputValue}"/> </td>
+                    <td> <input style="text-align: center" type="text" name="code" value="" th:value="${work.code}"/> </td>
+                    <td> <input style="text-align: center" type="text" name="secondCode" value="" th:value="${work.secondCode}"/> </td>
+                    <td> <input type="text" name="workItem" value="" th:value="${work.workItem}"/> </td>
+                    <input type="hidden" name="id" value="" th:value="${work.id}"/>
+                    <td><input class="btn btn-md" type="submit" value="수정"/></td>
+                </form>
                 <td>
                     <form action="#" th:action="@{/deleteWork}" method="get">
                         <input type="hidden" name="id" value="" th:value="${work.id}"/>
-                        <input type="submit" value="삭제"/>
+                        <input class="btn btn-md" type="submit" value="삭제"/>
                     </form>
                 </td>
             </tr>
         </th:block>
-
     </table>
+<br/>
+<br/>
+    <form th:action="@{/logout}" method="get">
+    <button class="btn btn-md btn-danger btn-block" name="registration"
+            type="Submit">Logout</button>
+    </form>
 </body>
 </html>

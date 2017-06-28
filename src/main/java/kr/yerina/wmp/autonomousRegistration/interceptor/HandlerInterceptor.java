@@ -3,6 +3,7 @@ package kr.yerina.wmp.autonomousRegistration.interceptor;
 
 import kr.yerina.wmp.autonomousRegistration.properties.WmpServiceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @Component
+@EnableConfigurationProperties(WmpServiceProperties.class)
 public class HandlerInterceptor extends HandlerInterceptorAdapter{
 
     @Autowired

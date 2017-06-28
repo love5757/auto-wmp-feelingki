@@ -31,10 +31,6 @@ server:
   port: 7788
 
 
-management:
-  security:
-    enabled: false
-
 ---
 logging:
   config: classpath:logback-prod.xml
@@ -46,8 +42,12 @@ spring:
     username: wmp
     password: 1q2w3e4r5t
     driver-class-name: com.mysql.jdbc.Driver
-
-
+  queries:
+    users-query: select email, password, active from user where email=?
+    roles-query: select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
 
 server:
   port: 8008
@@ -55,5 +55,6 @@ server:
 management:
    security:
      enabled: false
+
 
 

@@ -1,5 +1,6 @@
 package kr.yerina.wmp.autonomousRegistration.slack;
 
+import kr.yerina.wmp.autonomousRegistration.properties.WmpServiceProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,17 +22,8 @@ public class SlackNotifier {
     @Autowired
     private RestTemplate restTemplate;
 
-    public enum SlackTarget {
-        CH_INCOMING(" ", " ");
-
-        String webHookUrl;
-        String channel;
-
-        SlackTarget(String webHookUrl, String channel) {
-            this.webHookUrl = webHookUrl;
-            this.channel = channel;
-        }
-    }
+    @Autowired
+    private WmpServiceProperties wmpServiceProperties;
 
     @Data
     @AllArgsConstructor
@@ -62,13 +54,14 @@ public class SlackNotifier {
         }
     }
 
-    public boolean notify(SlackTarget target, SlackMessageAttachement message) {
-        log.debug("Notify[target: {}, message: {}]", target, message);
+    public boolean notify(SlackMessageAttachement message) {
 
-        SlackMessage slackMessage = SlackMessage.builder().channel(target.channel)
+        log.debug("Notify[message: {}]", message);
+
+        SlackMessage slackMessage = SlackMessage.builder().channel(wmpServiceProperties.getSlackChannel())
                 .attachments(Lists.newArrayList(message)).build();
         try {
-            restTemplate.postForEntity(target.webHookUrl, slackMessage, String.class);
+            restTemplate.postForEntity(wmpServiceProperties.getSlackWebhook(), slackMessage, String.class);
             return true;
         } catch (Exception e) {
             log.error("Occur Exception: {}", e);

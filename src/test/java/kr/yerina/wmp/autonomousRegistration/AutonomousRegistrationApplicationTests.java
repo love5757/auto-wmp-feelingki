@@ -1,25 +1,24 @@
 package kr.yerina.wmp.autonomousRegistration;
 
+import kr.yerina.wmp.autonomousRegistration.controller.LoginController;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+
 
 @Slf4j
 public class AutonomousRegistrationApplicationTests {
 
 	@Test
-	public void workAdd(){
+	public void addRole(){
 		assertNull(null);
 	}
 

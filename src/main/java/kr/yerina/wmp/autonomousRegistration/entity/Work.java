@@ -1,4 +1,4 @@
-package kr.yerina.wmp.autonomousRegistration.domain;
+package kr.yerina.wmp.autonomousRegistration.entity;
 
 import lombok.Data;
 import lombok.Getter;
@@ -17,12 +17,12 @@ import javax.persistence.Id;
 public class Work {
     @Id
     @GeneratedValue
-    @Getter
+    @Getter @Setter
     private int id;
     @Getter @Setter
     private String code;           //프로젝트 명
     @Getter @Setter
-    private Long inputValue = 8L;  //작업시간
+    private Long inputValue;  //작업시간
     @Getter @Setter
     private String workItem;       //작업내용
     @Getter @Setter

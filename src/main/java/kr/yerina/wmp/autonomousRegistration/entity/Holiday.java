@@ -1,4 +1,4 @@
-package kr.yerina.wmp.autonomousRegistration.domain;
+package kr.yerina.wmp.autonomousRegistration.entity;
 
 import lombok.Getter;
 import lombok.Setter;
