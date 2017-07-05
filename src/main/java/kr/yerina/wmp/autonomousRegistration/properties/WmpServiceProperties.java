@@ -8,11 +8,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class WmpServiceProperties {
     @Getter @Setter
     private String desc;
-
-    @Getter @Setter
-    private String slackWebhook;
-
-    @Getter @Setter
-    private String slackChannel;
-
 }

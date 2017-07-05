@@ -5,7 +5,6 @@ import kr.yerina.wmp.autonomousRegistration.entity.Holiday;
 import kr.yerina.wmp.autonomousRegistration.entity.Work;
 import kr.yerina.wmp.autonomousRegistration.repository.HolidayRepository;
 import kr.yerina.wmp.autonomousRegistration.repository.WorksRepository;
-import kr.yerina.wmp.autonomousRegistration.slack.SlackNotifier;
 import kr.yerina.wmp.autonomousRegistration.utils.DateUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,6 @@ public class WmpScheduler {
 
     @Autowired
     private HolidayRepository holidayRepository;
-
-    @Autowired
-    private SlackNotifier slackNotifier;
 
 
     //월~금 오후 5시 10분
@@ -85,10 +81,6 @@ public class WmpScheduler {
                     log.info("response : "+addWorkResponse);
                 }
 
-                /*SlackNotifier.SlackMessageAttachement slackMessageAttachement = new SlackNotifier.SlackMessageAttachement();
-                slackMessageAttachement.setTitle("WMP 자동 등록");
-                slackMessageAttachement.setText("WMP 등록 처리가 완료 되었습니다.");
-                slackNotifier.notify(SlackNotifier.SlackTarget.CH_INCOMING, slackMessageAttachement);*/
             }
         }
     }

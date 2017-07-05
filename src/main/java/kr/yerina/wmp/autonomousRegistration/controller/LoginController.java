@@ -5,6 +5,11 @@ import kr.yerina.wmp.autonomousRegistration.entity.User;
 import kr.yerina.wmp.autonomousRegistration.repository.RoleRepository;
 import kr.yerina.wmp.autonomousRegistration.repository.UserRepository;
 import kr.yerina.wmp.autonomousRegistration.service.inf.UserService;
+import kr.yerina.wmp.autonomousRegistration.utils.JsonUtils;
+import net.gpedro.integrations.slack.SlackApi;
+import net.gpedro.integrations.slack.SlackAttachment;
+import net.gpedro.integrations.slack.SlackField;
+import net.gpedro.integrations.slack.SlackMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -20,8 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
+import javax.validation.constraints.Null;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -82,8 +88,8 @@ public class LoginController {
             modelAndView.addObject("successMessage", "계정이 정상 등록 되었습니다. 계정 활성화 요청 후 로그인 하세요.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("login");
-
         }
+
         return modelAndView;
     }
 

@@ -26,10 +26,17 @@ spring:
     mode: LEGACYHTML5
     cache: false
 
-
 server:
   port: 7788
 
+log:
+  slack:
+    enabled: true
+    webHookUrl: https://hooks.slack.com/services/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
+    channel: auto_wmp
+  database:
+    enabled: true
+  level: ERROR
 
 ---
 logging:

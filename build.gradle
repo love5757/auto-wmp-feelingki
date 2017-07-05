@@ -55,7 +55,12 @@ dependencies {
 	compile 'org.springframework.security:spring-security-config'
 	compile('net.sourceforge.nekohtml:nekohtml')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
-	/*compile group: 'org.aspectj', name:'aspectjweaver'*/
+	compile 'com.fasterxml.jackson.core:jackson-core'
+	compile 'com.fasterxml.jackson.core:jackson-annotations'
+	compile 'com.fasterxml.jackson.core:jackson-databind'
+	compile 'eu.bitwalker:UserAgentUtils:1.18'
+	compile 'net.gpedro.integrations.slack:slack-webhook:1.1.1'
+	compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 compileJava.dependsOn(processResources)

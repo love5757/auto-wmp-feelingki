@@ -4,6 +4,7 @@ import kr.yerina.wmp.autonomousRegistration.entity.Role;
 import kr.yerina.wmp.autonomousRegistration.entity.User;
 import kr.yerina.wmp.autonomousRegistration.repository.RoleRepository;
 import kr.yerina.wmp.autonomousRegistration.repository.UserRepository;
+import kr.yerina.wmp.autonomousRegistration.service.inf.SlackSendService;
 import kr.yerina.wmp.autonomousRegistration.service.inf.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private SlackSendService slackSendService;
+
 
     @Override
     public User findUserByEmail(String email) {
@@ -34,6 +38,8 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
+
+        slackSendService.sendSlack("회원가입 완료", user.toString());
     }
 
     @Override

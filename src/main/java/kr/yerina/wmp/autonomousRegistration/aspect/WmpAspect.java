@@ -29,9 +29,6 @@ public class WmpAspect {
         log.info("logBefore()");
         log.info("method : " + joinPoint.getSignature().getName());
         log.info("arguments : " + Arrays.toString(joinPoint.getArgs()));
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        log.info("requset uri : "+request.getRequestURI());
-        log.info("remote addr : "+ getUserIP(request));
         log.info("******");
     }
 
